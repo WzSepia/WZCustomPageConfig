@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>圆形扩散</title>
+		<style type="text/css">
+			canvas {
+				background: #000000;
+			}
+		</style>
+	</head>
+
+	<body>
+		<canvas id="mycanvas" width="500" height="500"></canvas>
+		<script>
+			let canvas = document.getElementById('mycanvas'),
+				ctx = canvas.getContext('2d')
+			//存储所画图形区域
+			//let tempXY = {x,y,r,i},
+			let clickXY = []
+
+			ctx.fillStyle = "red"
+			//图形1
+			ctx.fillRect(0, 0, 100, 100)
+			clickXY.push({
+				x: 0,
+				y: 0,
+				r: 100,
+				i: 1
+			})
+
+			//图形2
+			ctx.fillStyle = "lightblue"
+			ctx.fillRect(200, 200, 100, 100)
+			clickXY.push({
+				x: 200,
+				y: 200,
+				r: 100,
+				i: 2
+			})
+
+			canvas.addEventListener('click', function(e) {
+				var x = event.pageX - canvas.getBoundingClientRect().left
+				var y = event.pageY - canvas.getBoundingClientRect().top
+				for (let i of clickXY) {
+					if (x > (i.x - i.r) && x < (i.x + i.r) && y > (i.y - i.r) && y < (i.y + i.r)) {
+						alert("我是第" + i.i + "个图形")
+						//这里可以根据i 来确定你需要执行的方法
+						break
+					}
+				}
+			}, false)
+		</script>
+	</body>
+</html>
