@@ -3,14 +3,58 @@
 	<head>
 		<meta charset="utf-8" name="viewport">
 		<title>自主页面开发（又名：自定义表格）</title>
-		<link rel="stylesheet" type="text/css" href="base.css"/>
-		<link rel="stylesheet" type="text/css" href="WZCustomPageConfig.css"/>
+		<link rel="stylesheet" type="text/css" href="base.css" />
+		<link rel="stylesheet" type="text/css" href="WZCustomPageConfig.css" />
 	</head>
 	<body>
-		<div id="demo1" name="要有宽高,canvas容器.">
-			
+		<div class="box">
+			<div id="demo1" class="fl" name="要有宽高,canvas容器.">
+
+			</div>
+			<div class="active fl">
+				<h1>基本操作区</h1>
+				<div>
+					<input class="active_text">
+					<button class="btn btn_addText">添加文本</button>
+				</div>
+				<div>
+					<select>
+						<option value="./imgs/1.jpg">图片1</option>
+						<option value="./imgs/2.jpg">图片2</option>
+						<option value="./imgs/3.jpg">图片3</option>
+						<option value="./imgs/4.jpg">图片4</option>
+					</select>
+					<button class="btn btn_addImg">添加图片</button>
+				</div>
+				<div>
+					<button class="btn btn_addBgpic">添加背景图</button>
+				</div>
+				<div>
+					<button class="btn btn_addRect">添加图形区域</button>
+				</div>
+			</div>
 		</div>
+		<script type="text/javascript" src="jquery-1.11.0.min.js"></script>
 		<script type="text/javascript" src="./node_modules/zrender/dist/zrender.js"></script>
 		<script type="text/javascript" src="WZCustomPageConfig.js"></script>
+		<script type="text/javascript">
+			pageCustom.init("demo1", "");
+			$(".btn_addText").on("click", function() {
+				let str = $(".active_text").val();
+				pageCustom.addText(str, str);
+			})
+			$(".btn_addImg").on("click", function() {
+				let str = $(".active_text").text();
+				pageCustom.addImg(str, str);
+			})
+			$(".btn_addBgpic").on("click", function() {
+				let str = $(".active_text").text();
+				pageCustom.addText(str, str);
+			})
+			$(".btn_addRect").on("click", function() {
+				let str = $(".active_text").text();
+				pageCustom.addText(str, str);
+			})
+		</script>
 	</body>
 </html>

@@ -1,5 +1,36 @@
+.box{
+	width: 1000px;
+	height: 600px;
+	border: 1px solid #f60;
+}
+
 #demo1{
-	width: 400px;
-	height: 300px;
+	width: 598px;
+	height: 600px;
 	border: 1px solid #000000;
+}
+
+.active{
+	width: 398px;
+	height: 600px;
+	border: 1px solid #000000;
+}
+
+.active h1{
+	text-align: center;
+}
+
+.active>div{
+	margin: 10px;
+}
+
+.active_text{
+	border: 1px solid #000000;
+}
+
+.btn{
+	padding: 4px 8px;
+	border: 1px solid #f60;
+	border-radius: 4px;
+	cursor: pointer;
 }
