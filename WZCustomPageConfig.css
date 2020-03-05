@@ -1,36 +1,61 @@
-.box{
+.custompage_box {
 	width: 1000px;
 	height: 600px;
 	border: 1px solid #f60;
 }
 
-#demo1{
+#custompage_draw {
 	width: 598px;
-	height: 600px;
+	height: 550px;
 	border: 1px solid #000000;
 }
 
-.active{
+.draw_pic {
+	left: 50%;
+	top: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	-o-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	border: 1px solid #000000;
+}
+
+.active {
 	width: 398px;
-	height: 600px;
+	height: 550px;
 	border: 1px solid #000000;
 }
 
-.active h1{
+.active h1 {
 	text-align: center;
 }
 
-.active>div{
+.active>div {
 	margin: 10px;
 }
 
-.active_text{
+.active input {
+	border-radius: 4px;
 	border: 1px solid #000000;
 }
 
-.btn{
+.active_text {
+	border: 1px solid #000000;
+}
+
+.btn {
 	padding: 4px 8px;
-	border: 1px solid #f60;
+	background-color: #f2f2f2;
+	border: 1px solid #000000;
 	border-radius: 4px;
 	cursor: pointer;
+}
+
+.custompage_sure {
+	text-align: center;
+}
+
+.btn_custompage_sure {
+	margin-top: 10px;
 }

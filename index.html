@@ -7,18 +7,28 @@
 		<link rel="stylesheet" type="text/css" href="WZCustomPageConfig.css" />
 	</head>
 	<body>
-		<div class="box">
-			<div id="demo1" class="fl" name="要有宽高,canvas容器.">
+		<div class="custompage_box">
+			<!-- 图形绘制区域 -->
+			<div id="custompage_draw" class="posr fl">
+				<div id="demo1" class="posa draw_pic" name="要有宽高,canvas容器.">
+				</div>
 
 			</div>
+
+			<!-- 操作区域 -->
 			<div class="active fl">
 				<h1>基本操作区</h1>
+				<div>
+					宽：<input class="set_active_area_w" type="text" placeholder="输入宽度像素大小" />
+					高：<input class="set_active_area_h" type="text" placeholder="输入高度像素大小" />
+					<button class="btn set_active_area">生成画布</button>
+				</div>
 				<div>
 					<input class="active_text">
 					<button class="btn btn_addText">添加文本</button>
 				</div>
 				<div>
-					<select>
+					<select class="active_img">
 						<option value="./imgs/1.jpg">图片1</option>
 						<option value="./imgs/2.jpg">图片2</option>
 						<option value="./imgs/3.jpg">图片3</option>
@@ -27,33 +37,97 @@
 					<button class="btn btn_addImg">添加图片</button>
 				</div>
 				<div>
+					<select class="active_bgimg">
+						<option value="./imgs/bg.jpg">图片1</option>
+					</select>
 					<button class="btn btn_addBgpic">添加背景图</button>
+					<button class="btn btn_delBgpic">删除背景图</button>
 				</div>
 				<div>
+					<input class="active_rect" type="text" placeholder="图形区域代码" />
 					<button class="btn btn_addRect">添加图形区域</button>
 				</div>
+
+				<div id="">
+					是否显示单元格类型：
+					<label>否<input type="radio" name="sfxsdyglx" class="active_sfxsdyglx" value="0" checked="checked" /></label>
+					<label>是<input type="radio" name="sfxsdyglx" class="active_sfxsdyglx" value="1" /></label>
+				</div>
+
+				<div id="">
+					是否显示辅助线：
+					<label>否<input type="radio" name="sfxsfzx" class="active_sfxsfzx" value="0" checked="checked" /></label>
+					<label>是<input type="radio" name="sfxsfzx" class="active_sfxsfzx" value="1" /></label>
+				</div>
+
+				<div id="">
+					是否整体配置鼠标悬浮效果：
+					<label>否<input type="radio" name="sfxztpzsbxfxg" class="active_sfxztpzsbxfxg" value="0" checked="checked" /></label>
+					<label>是<input type="radio" name="sfxztpzsbxfxg" class="active_sfxztpzsbxfxg" value="1" /></label>
+				</div>
+
+				<div id="">
+					是否整体配置鼠标点击效果：
+					<label>否<input type="radio" name="sfxztpzsbdjxg" class="active_sfxztpzsbdjxg" value="0" checked="checked" /></label>
+					<label>是<input type="radio" name="sfxztpzsbdjxg" class="active_sfxztpzsbdjxg" value="1" /></label>
+				</div>
+
+				<div id="">
+					超级列表的单行高度：
+					<input type="text" class="active_cjlbddhgdg" placeholder="输入像素值" />
+					<button class="btn btn_cjlbddhgdg">确定</button>
+				</div>
+
+				<div id="">
+					设置背面单元格：
+					<input type="radio" name="szbmdyg" class="active_szbmdyg" />
+				</div>
+
+				<div id="">
+					批量设置单元格样式：
+					<input type="radio" name="plszdygys" class="active_plszdygys" value="0" />
+				</div>
+			</div>
+			<div class="custompage_sure">
+				<button type="button" class="btn btn_custompage_sure">保存</button>
 			</div>
 		</div>
 		<script type="text/javascript" src="jquery-1.11.0.min.js"></script>
 		<script type="text/javascript" src="./node_modules/zrender/dist/zrender.js"></script>
 		<script type="text/javascript" src="WZCustomPageConfig.js"></script>
 		<script type="text/javascript">
-			pageCustom.init("demo1", "");
+			//
+			$(".set_active_area").on("click", function() {
+				let w = Number($(".set_active_area_w").val());
+				let h = Number($(".set_active_area_h").val());
+				if (pageCustom.conNum(w, h)) {
+					//初始化画布
+					pageCustom.init("demo1", "", w, h);
+				}
+			});
+			//添加文本
 			$(".btn_addText").on("click", function() {
 				let str = $(".active_text").val();
 				pageCustom.addText(str, str);
 			})
+			//添加图片
 			$(".btn_addImg").on("click", function() {
-				let str = $(".active_text").text();
+				let str = $(".active_img").val();
 				pageCustom.addImg(str, str);
 			})
+			//添加背景图
 			$(".btn_addBgpic").on("click", function() {
-				let str = $(".active_text").text();
-				pageCustom.addText(str, str);
-			})
+				let str = $(".active_bgimg").val();
+				pageCustom.addBgpic("demo1", str);
+			});
+			//删除背景图
+			$(".btn_delBgpic").on("click", function() {
+				pageCustom.delBgpic("demo1", str);
+			});
+			//添加图形区域
 			$(".btn_addRect").on("click", function() {
-				let str = $(".active_text").text();
-				pageCustom.addText(str, str);
+				let str = $(".active_rect").val();
+				pageCustom.addRect(str, str);
 			})
 		</script>
 	</body>
