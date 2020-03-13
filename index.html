@@ -23,11 +23,11 @@
 					高：<input class="text set_active_area_h" type="text" placeholder="像素大小" />
 					<button class="btn set_active_area">生成画布</button>
 				</div>
-				<div>
+				<div id="active_text">
 					<input type="text" class="active_text" placeholder="输入文本">
 					<button class="btn btn_addText">添加文本</button>
 				</div>
-				<div>
+				<div id="active_img">
 					<select class="active_img">
 						<option value="./imgs/1.jpg">图片1</option>
 						<option value="./imgs/2.jpg">图片2</option>
@@ -43,7 +43,7 @@
 					<button class="btn btn_addBgpic">添加背景图</button>
 					<button class="btn btn_delBgpic">删除背景图</button>
 				</div> -->
-				<div>
+				<div id="active_rect">
 					<input class="active_rect" type="text" placeholder="提供唯一代码,如:bt(标题)" />
 					<button class="btn btn_addRect">添加图形区域</button>
 				</div>
@@ -137,6 +137,14 @@
 		<script type="text/javascript" src="./node_modules/zrender/dist/zrender.js"></script>
 		<script type="text/javascript" src="WZCustomPageConfig.js"></script>
 		<script type="text/javascript">
+			
+			var s_options = "<option value='./imgs/1.jpg'>图片1</option>"+
+			"<option value='./imgs/2.jpg'>图片2</option>"+
+			"<option value='./imgs/3.jpg'>图片3</option>"+
+			"<option value='./imgs/4.jpg'>图片4</option>"+
+			"<option value='./imgs/bg.jpg'>图片5</option>";
+			$(".active_img").html(s_options);
+			
 			let rectColor = new zrender.LinearGradient(0, 0, 1, 0, [{
 				offset: 0,
 				color: "#ff0"

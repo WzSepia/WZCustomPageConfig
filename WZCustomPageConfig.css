@@ -54,6 +54,18 @@
 	width: 250px;
 }
 
+#active_text {
+	visibility: hidden;
+}
+
+#active_img {
+	visibility: hidden;
+}
+
+#active_rect {
+	visibility: hidden;
+}
+
 .btn {
 	padding: 4px 8px;
 	background-color: #f2f2f2;

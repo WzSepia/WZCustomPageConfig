@@ -447,6 +447,10 @@ function webzCustom(el, opts) {
 		if (pageCustom.conNum(w, h)) {
 			//初始化画布
 			pageCustom.init(el, opts, w, h);
+			//其他功能显示
+			$("#active_text").css("visibility", "inherit");
+			$("#active_img").css("visibility", "inherit");
+			$("#active_rect").css("visibility", "inherit");
 		}
 	});
 	//添加文本
@@ -471,7 +475,7 @@ function webzCustom(el, opts) {
 	//添加图形区域
 	$(".btn_addRect").on("click", function() {
 		let str = $(".active_rect").val();
-		if (!str){
+		if (!str) {
 			alert("请输入唯一代码！");
 			return;
 		};
