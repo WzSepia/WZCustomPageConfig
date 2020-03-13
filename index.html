@@ -19,12 +19,12 @@
 			<div class="active fl">
 				<h1>基本操作区</h1>
 				<div>
-					宽：<input class="set_active_area_w" type="text" placeholder="输入宽度像素大小" />
-					高：<input class="set_active_area_h" type="text" placeholder="输入高度像素大小" />
+					宽：<input class="text set_active_area_w" type="text" placeholder="像素大小" />
+					高：<input class="text set_active_area_h" type="text" placeholder="像素大小" />
 					<button class="btn set_active_area">生成画布</button>
 				</div>
 				<div>
-					<input class="active_text">
+					<input type="text" class="active_text" placeholder="输入文本">
 					<button class="btn btn_addText">添加文本</button>
 				</div>
 				<div>
@@ -36,19 +36,19 @@
 					</select>
 					<button class="btn btn_addImg">添加图片</button>
 				</div>
-				<div>
+				<!-- <div>
 					<select class="active_bgimg">
 						<option value="./imgs/bg.jpg">图片1</option>
 					</select>
 					<button class="btn btn_addBgpic">添加背景图</button>
 					<button class="btn btn_delBgpic">删除背景图</button>
-				</div>
+				</div> -->
 				<div>
-					<input class="active_rect" type="text" placeholder="图形区域代码" />
+					<input class="active_rect" type="text" placeholder="提供唯一代码,如:bt(标题)" />
 					<button class="btn btn_addRect">添加图形区域</button>
 				</div>
 
-				<div id="">
+				<!-- <div id="">
 					是否显示单元格类型：
 					<label>否<input type="radio" name="sfxsdyglx" class="active_sfxsdyglx" value="0" checked="checked" /></label>
 					<label>是<input type="radio" name="sfxsdyglx" class="active_sfxsdyglx" value="1" /></label>
@@ -86,6 +86,46 @@
 				<div id="">
 					批量设置单元格样式：
 					<input type="radio" name="plszdygys" class="active_plszdygys" value="0" />
+				</div> -->
+			</div>
+
+			<!-- 配置区域 -->
+			<div class="config fl">
+				<h1>通用元素配置界面</h1>
+				<div id="config_box">
+					<div id="">
+						文字颜色：<input type="text" id="font_color" placeholder="例如:默认 #000000,rgb(0,0,0)" />
+					</div>
+					<div id="">
+						文字大小：<input type="text" id="font_size" placeholder="例如:18,默认18" /> px
+					</div>
+					<div id="">
+						文字粗细：<input type="text" id="font_weight" placeholder="例如:100-600整百值,bold,默认无" />
+					</div>
+					<div id="">
+						背景(区域图形)颜色：(从左至右)<br>
+						起始颜色：<input type="text" id="bg_color_s" placeholder="例如:默认 #000000,rgb(0,0,0)" /><br>
+						过度颜色：<input type="text" id="bg_color_m" placeholder="例如:默认 #000000,rgb(0,0,0)" /><br>
+						终止颜色：<input type="text" id="bg_color_e" placeholder="例如:默认 #000000,rgb(0,0,0)" /><br>
+						边框颜色：<input type="text" id="border_color" placeholder="例如:默认 #000000,rgb(0,0,0)" />
+					</div>
+					<div id="">
+						元素(图片)大小：<br>
+						元素宽度：<input type="text" id="el_size_w" placeholder="例如:100,默认30" /> px <br>
+						元素高度：<input type="text" id="el_size_h" placeholder="例如:100,默认30" /> px
+					</div>
+					<div id="">
+						元素位置：（相对画布左上角）<br>
+						横轴位置：<input type="text" id="x" placeholder="例如:10,默认0" /><br>
+						纵轴位置：<input type="text" id="y" placeholder="例如:10,默认0" />
+					</div>
+					<div id="">
+						图形层级设置：<br>
+						层级设置：<input type="text" id="zlevel" placeholder="例如:1,默认无,数值越大显示越置前" />
+					</div>
+					<div id="">
+						<button type="button" class="btn config_sure">确认配置</button>
+					</div>
 				</div>
 			</div>
 			<div class="custompage_sure">
@@ -93,42 +133,97 @@
 			</div>
 		</div>
 		<script type="text/javascript" src="jquery-1.11.0.min.js"></script>
+		<script type="text/javascript" src="jquery.ba-resize.min.js"></script>
 		<script type="text/javascript" src="./node_modules/zrender/dist/zrender.js"></script>
 		<script type="text/javascript" src="WZCustomPageConfig.js"></script>
 		<script type="text/javascript">
-			//
-			$(".set_active_area").on("click", function() {
-				let w = Number($(".set_active_area_w").val());
-				let h = Number($(".set_active_area_h").val());
-				if (pageCustom.conNum(w, h)) {
-					//初始化画布
-					pageCustom.init("demo1", "", w, h);
+			let rectColor = new zrender.LinearGradient(0, 0, 1, 0, [{
+				offset: 0,
+				color: "#ff0"
+			}, {
+				offset: 0.5,
+				color: "#f00"
+			}, {
+				offset: 1,
+				color: "#0f0"
+			}], false);
+			
+			//模拟数据
+			var options = {
+				//记录容器大小
+				box: {
+					width: 300,
+					height: 300
+				},
+				//文本元素集合
+				text: {
+					q: {
+						draggable: false,
+						style: {
+							x: 4,
+							y: 4,
+							width: 30,
+							height: 30,
+							image: null,
+							text: "我就是标题",
+							fontSize: "50",
+							textFill: "#000000",
+							fill: null,
+							stroke: 'transparent'
+						},
+						shape: {
+							r: null,
+							x: 4,
+							y: 4,
+							width: 130,
+							height: 130,
+						},
+						position: [4,4],
+						zlevel: 10
+					}
+				},
+				//图片元素集合
+				imgs: {
+					w: {
+						draggable: false,
+						style: {
+							x: 4,
+							y: 4,
+							width: 130,
+							height: 130,
+							image: "./imgs/1.jpg"
+						},
+						shape: {
+							width: 130,
+							height: 130,
+						},
+						position: [4,104],
+						zlevel: 1
+					}
+				},
+				//区域图形元素
+				rect: {
+					e: {
+						draggable: false,
+						style: {
+							fill: rectColor,
+							stroke: 'transparent'
+						},
+						shape: {
+							r: null,
+							x: 4,
+							y: 4,
+							width: 130,
+							height: 130,
+						},
+						position: [154,4],
+						zlevel: 2
+					}
 				}
-			});
-			//添加文本
-			$(".btn_addText").on("click", function() {
-				let str = $(".active_text").val();
-				pageCustom.addText(str, str);
-			})
-			//添加图片
-			$(".btn_addImg").on("click", function() {
-				let str = $(".active_img").val();
-				pageCustom.addImg(str, str);
-			})
-			//添加背景图
-			$(".btn_addBgpic").on("click", function() {
-				let str = $(".active_bgimg").val();
-				pageCustom.addBgpic("demo1", str);
-			});
-			//删除背景图
-			$(".btn_delBgpic").on("click", function() {
-				pageCustom.delBgpic("demo1", str);
-			});
-			//添加图形区域
-			$(".btn_addRect").on("click", function() {
-				let str = $(".active_rect").val();
-				pageCustom.addRect(str, str);
-			})
+			};
+			//方法执行
+			//webzCustom("demo1", options);
+			webzCustom("demo1", "");
 		</script>
 	</body>
 </html>

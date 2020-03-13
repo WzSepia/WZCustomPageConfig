@@ -1,12 +1,12 @@
 .custompage_box {
-	width: 1000px;
-	height: 600px;
+	width: 1170px;
+	height: 630px;
 	border: 1px solid #f60;
 }
 
 #custompage_draw {
-	width: 598px;
-	height: 550px;
+	width: 770px;
+	height: 580px;
 	border: 1px solid #000000;
 }
 
@@ -22,26 +22,36 @@
 }
 
 .active {
+	/* display: none; */
 	width: 398px;
-	height: 550px;
+	height: 580px;
 	border: 1px solid #000000;
 }
 
-.active h1 {
+.active h1,
+.config h1 {
 	text-align: center;
 }
 
-.active>div {
+.active>div,
+#config_box>div {
 	margin: 10px;
 }
 
-.active input {
+.active input,
+.config input {
+	height: 24px;
+	text-indent: 2px;
 	border-radius: 4px;
 	border: 1px solid #000000;
 }
 
+.active input.text {
+	width: 90px;
+}
+
 .active_text {
-	border: 1px solid #000000;
+	width: 250px;
 }
 
 .btn {
@@ -58,4 +68,27 @@
 
 .btn_custompage_sure {
 	margin-top: 10px;
+}
+
+/*  */
+
+.config {
+	display: none;
+	width: 398px;
+	height: 580px;
+	border: 1px solid #000000;
+}
+
+.config input {
+	width: 200px;
+}
+
+.active_rect{
+	width: 226px;
+}
+
+#config_box{
+	height: 522px;
+	overflow-x: hidden;
+	overflow-y: auto;
 }
