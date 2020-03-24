@@ -10,7 +10,7 @@
 		<div class="custompage_box">
 			<!-- 图形绘制区域 -->
 			<div id="custompage_draw" class="posr fl">
-				<div id="demo1" class="posa draw_pic" name="要有宽高,canvas容器.">
+				<div id="webzpage" class="posa draw_pic" name="要有宽高,canvas容器.">
 				</div>
 
 			</div>
@@ -125,6 +125,7 @@
 					</div>
 					<div id="">
 						<button type="button" class="btn config_sure">确认配置</button>
+						<button type="button" class="btn config_del">删除元素</button>
 					</div>
 				</div>
 			</div>
@@ -165,7 +166,7 @@
 				},
 				//文本元素集合
 				text: {
-					q: {
+					T1: {
 						draggable: false,
 						style: {
 							x: 4,
@@ -192,7 +193,7 @@
 				},
 				//图片元素集合
 				imgs: {
-					w: {
+					P1: {
 						draggable: false,
 						style: {
 							x: 4,
@@ -211,7 +212,7 @@
 				},
 				//区域图形元素
 				rect: {
-					e: {
+					S1: {
 						draggable: false,
 						style: {
 							fill: rectColor,
@@ -230,8 +231,8 @@
 				}
 			};
 			//方法执行
-			//webzCustom("demo1", options);
-			webzCustom("demo1", "");
+			webzCustom("webzpage", options);
+			//webzCustom("webzpage", "");
 		</script>
 	</body>
 </html>

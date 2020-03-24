@@ -1,5 +1,5 @@
 /*
-	自定义表格==画布版(canvas)
+	自定义画布==canvas版自定web
 	依赖：zrender
 	作者：wangze
 	版本：pageCustom -V 1.0
@@ -35,12 +35,13 @@ var pageCustom = {
 		//区域图形元素
 		rect: {}
 	},
+
 	/**
 	 * 自定义图形初始化
 	 * @describing init
-	 * @param el,opts
+	 * @param el, options, w, h
 	 * @author wangze
-	 * @updatetime 2020-03-12
+	 * @updatetime 2020-03-24
 	 */
 	init: function(el, options, w, h) {
 		let that = this;
@@ -65,12 +66,13 @@ var pageCustom = {
 		//如果数据存在
 		if (options) this.customPageRender(options);
 	},
+
 	/**
 	 * 添加图形区域
 	 * @describing addRect
-	 * @param name
+	 * @param rect
 	 * @author wangze
-	 * @updatetime 2020-03-12
+	 * @updatetime 2020-03-24
 	 */
 	addRect: function(rect) {
 		//判断如果为空则返回
@@ -78,12 +80,13 @@ var pageCustom = {
 		//打开元素配置面板
 		this.configBox("rect", rect, true);
 	},
+
 	/**
 	 * 添加文本
 	 * @describing addText
-	 * @param name
+	 * @param text
 	 * @author wangze
-	 * @updatetime 2020-03-12
+	 * @updatetime 2020-03-24
 	 */
 	addText: function(text) {
 		//判断如果为空则返回
@@ -95,9 +98,9 @@ var pageCustom = {
 	/**
 	 * 添加图片
 	 * @describing addImg
-	 * @param name
+	 * @param img
 	 * @author wangze
-	 * @updatetime 2020-03-12
+	 * @updatetime 2020-03-24
 	 */
 	addImg: function(img) {
 		//判断如果为空则返回
@@ -105,49 +108,111 @@ var pageCustom = {
 		//打开元素配置面板
 		this.configBox("img", img, true);
 	},
+
 	/**
 	 * 添加背景图片
 	 * @describing addBgpic
-	 * @param name
+	 * @param bgimg
 	 * @author wangze
-	 * @updatetime 2020-03-12
+	 * @updatetime 2020-03-24
 	 */
-	addBgpic: function(name, src) {
+	addBgpic: function(bgimg) {
 		$(this.zr.dom).css({
-			backgroundImage: "url(" + src + ")",
+			backgroundImage: "url(" + bgimg + ")",
 			backgroundSize: "100% 100%",
 			backgroundRepeat: "no-repeat",
 			backgroundPosition: "0 0"
 		})
 	},
+
 	/**
 	 * 删除背景图片
 	 * @describing delBgpic
 	 * @param dom
 	 * @author wangze
-	 * @updatetime 2020-03-12
+	 * @updatetime 2020-03-24
 	 */
 	delBgpic: function(dom) {
 		$(this.zr.dom).css({
 			backgroundImage: "url()",
 		})
 	},
+
+	/**
+	 * 左键操作
+	 * @describing leftKeyConfig
+	 * @param el
+	 * @author wangze
+	 * @updatetime 2020-03-24
+	 */
+	leftKeyConfig: function(el) {
+		console.log("您点击了左键～", el);
+	},
+
 	/**
 	 * 右键操作
 	 * @describing rightKeyConfig
 	 * @param el
 	 * @author wangze
-	 * @updatetime 2020-03-12
+	 * @updatetime 2020-03-24
 	 */
-	rightKeyConfig: function(el) {
-		//null
+	rightKeyConfig: function(mold, opt) {
+		switch (mold) {
+			case "text":
+				this.elModify(opt);
+				this.configBox("text", opt.style.text, true);
+				break;
+			case "img":
+
+				break;
+			case "rect":
+
+				break;
+			default:
+				break;
+		}
+	},
+
+	/**
+	 * 计算画布大小配置
+	 * @describing conNum
+	 * @param num1, num2
+	 * @author wangze
+	 * @updatetime 2020-03-24
+	 */
+	elModify: function(opt) {
+		console.log(opt);
+		//文字颜色
+		$("#font_color").val(opt.style.textFill);
+		//文字大小
+		$("#font_size").val(opt.style.fontSize);
+		//文字粗细
+		$("#font_weight").val(opt.style.fontWeight);
+		//背景起始色
+		$("#bg_color_s").val(opt.style.fill);
+		//背景过度色
+		$("#bg_color_m").val(opt.style.fill);
+		//背景终止色
+		$("#bg_color_e").val(opt.style.fill);
+		//边框颜色
+		$("#border_color").val(opt.style.fill);
+		//元素宽度
+		$("#el_size_w").val(opt.style.width);
+		//元素高度
+		$("#el_size_h").val(opt.style.height);
+		//元素横轴位置
+		$("#x").val(opt.position[0]);
+		//元素纵轴位置
+		$("#y").val(opt.position[1]);
+		//图形层级
+		$("#zlevel").val(opt.zlevel);
 	},
 	/**
 	 * 计算画布大小配置
 	 * @describing conNum
-	 * @param num1, num
+	 * @param num1, num2
 	 * @author wangze
-	 * @updatetime 2020-03-12
+	 * @updatetime 2020-03-24
 	 */
 	conNum: function(num1, num2) {
 		if (typeof(num1) == "number" && typeof(num2) == "number") {
@@ -161,12 +226,13 @@ var pageCustom = {
 			return false;
 		}
 	},
+
 	/**
 	 * 确认配置后的数据opts
 	 * @describing drawOpts
 	 * @param txt, img, drag
 	 * @author wangze
-	 * @updatetime 2020-03-12
+	 * @updatetime 2020-03-24
 	 */
 	drawOpts: function(txt, img, drag) {
 		let opts = {};
@@ -230,22 +296,22 @@ var pageCustom = {
 			position: [x ? x : 0, y ? y : 0],
 			zlevel: zlevel ? zlevel : null
 		}
+		$(".custompage_box input").val("");
 		return opts;
 	},
+
 	/**
 	 * 配置窗口的显示隐藏
 	 * @describing configBox
 	 * @param mold, val, state
 	 * @author wangze
-	 * @updatetime 2020-03-12
+	 * @updatetime 2020-03-24
 	 */
 	configBox: function(mold, val, state) {
 		if (state) {
-			$(".custompage_box input").val("");
 			$(".active").hide();
 			$(".config").show();
 		} else {
-			$(".custompage_box input").val("");
 			$(".config").hide();
 			$(".active").show();
 			return;
@@ -257,6 +323,7 @@ var pageCustom = {
 					//数据存储
 					that.custom_page_data.text[val] = that.drawOpts(val, null, false);
 					//绘图
+					that.zr.remove(that.eles[val]);
 					that.eles[val] = new zrender.Text(
 						that.drawOpts(val, null, true)
 					);
@@ -270,6 +337,8 @@ var pageCustom = {
 				case "img":
 					//数据存储
 					that.custom_page_data.imgs[val] = that.drawOpts(null, val, false);
+					//绘图
+					that.zr.remove(that.eles[val]);
 					that.eles[val] = new zrender.Image(
 						that.drawOpts(null, val, true)
 					);
@@ -284,6 +353,7 @@ var pageCustom = {
 					//数据存储
 					that.custom_page_data.rect[val] = that.drawOpts(null, null, false);
 					//绘图
+					that.zr.remove(that.eles[val]);
 					that.eles[val] = new zrender.Rect(
 						that.drawOpts(null, null, true)
 					);
@@ -299,13 +369,22 @@ var pageCustom = {
 			}
 		})
 	},
+	/**
+	 * 删除元素
+	 * @describing configDel
+	 * @param el
+	 * @author wangze
+	 * @updatetime 2020-03-24
+	 */
+	configDel: function() {
 
+	},
 	/**
 	 * 阻止页面默认事件
 	 * @describing oncontextmenu
 	 * @param el
 	 * @author wangze
-	 * @updatetime 2020-03-12
+	 * @updatetime 2020-03-24
 	 */
 	oncontextmenu: function(el) {
 		// 阻止页面右键
@@ -326,18 +405,19 @@ var pageCustom = {
 	 * @describing elMouseup
 	 * @param el,child,val
 	 * @author wangze
-	 * @updatetime 2020-03-12
+	 * @updatetime 2020-03-24
 	 */
 	elMouseup: function(el, child, val) {
 		this.custom_page_data[child][val].position = el.target.position;
 		return el.target.position;
 	},
+
 	/**
 	 * 根据配置画图
 	 * @describing customPageRender
 	 * @param opts
 	 * @author wangze
-	 * @updatetime 2020-03-12
+	 * @updatetime 2020-03-24
 		* opts:{
 			 box:{},
 			 text:{
@@ -355,26 +435,34 @@ var pageCustom = {
 		}
 	 */
 	customPageRender: function(opts) {
+		this.custom_page_data = opts;
 		//元素个数（totle）
 		let texts = opts.text;
 		let imgs = opts.imgs;
 		let rects = opts.rect;
+		//其他功能显示
+		$("#active_text").css("visibility", "inherit");
+		$("#active_img").css("visibility", "inherit");
+		$("#active_rect").css("visibility", "inherit");
 		//元素类型（文字）
 		if (texts) {
 			for (i in texts) {
-				this.customPageRenderText(texts[i]);
+				texts[i].draggable = true;
+				this.customPageRenderText(i, texts[i]);
 			}
 		}
 		//元素类型（图片)
 		if (imgs) {
 			for (i in imgs) {
-				this.customPageRenderImg(imgs[i]);
+				imgs[i].draggable = true;
+				this.customPageRenderImg(i, imgs[i]);
 			}
 		}
 		//元素类型（区域图形)
 		if (rects) {
 			for (i in rects) {
-				this.customPageRenderRect(rects[i]);
+				rects[i].draggable = true;
+				this.customPageRenderRect(i, rects[i]);
 			}
 		}
 	},
@@ -384,15 +472,21 @@ var pageCustom = {
 	 * @describing customPageRenderText
 	 * @param opt
 	 * @author wangze
-	 * @updatetime 2020-03-12
+	 * @updatetime 2020-03-24
 	 */
-	customPageRenderText: function(opt) {
+	customPageRenderText: function(key, opt) {
 		//绘图
-		let text = new zrender.Text(opt);
-		text.on("mousedown", function(e) {
-			console.log("您点击了元素。");
+		let that = this;
+		this.eles[key] = new zrender.Text(opt);
+		this.eles[key].on("mousedown", function(e) {
+			if(e.which == 1){
+				that.elMouseup(e, "text", key);
+			}else if(e.which == 3){
+				console.log("右键点击。", key, e);
+				that.rightKeyConfig("text", opt);
+			}
 		});
-		this.zr.add(text);
+		this.zr.add(this.eles[key]);
 	},
 
 	/**
@@ -400,13 +494,19 @@ var pageCustom = {
 	 * @describing customPageRenderImg
 	 * @param opt
 	 * @author wangze
-	 * @updatetime 2020-03-12
+	 * @updatetime 2020-03-24
 	 */
-	customPageRenderImg: function(opt) {
+	customPageRenderImg: function(key, opt) {
 		//绘图
+		let that = this;
 		let img = new zrender.Image(opt);
 		img.on("mousedown", function(e) {
-			console.log("您点击了元素。");
+			if(e.which == 1){
+				that.elMouseup(e, "imgs", key);
+			}else if(e.which == 3){
+				console.log("右键点击。", key, e);
+				that.rightKeyConfig();
+			}
 		});
 		this.zr.add(img);
 	},
@@ -416,13 +516,19 @@ var pageCustom = {
 	 * @describing customPageRenderRect
 	 * @param opt
 	 * @author wangze
-	 * @updatetime 2020-03-12
+	 * @updatetime 2020-03-24
 	 */
-	customPageRenderRect: function(opt) {
+	customPageRenderRect: function(key, opt) {
 		//绘图
+		let that = this;
 		let rect = new zrender.Rect(opt);
 		rect.on("mousedown", function(e) {
-			console.log("您点击了元素。");
+			if(e.which == 1){
+				that.elMouseup(e, "rect", key);
+			}else if(e.which == 3){
+				console.log("右键点击。", key, e);
+				that.rightKeyConfig();
+			}
 		});
 		this.zr.add(rect);
 	}
@@ -433,7 +539,7 @@ var pageCustom = {
  * @describing webzCustom
  * @param el, opts
  * @author wangze
- * @updatetime 2020-03-12
+ * @updatetime 2020-03-24
  */
 function webzCustom(el, opts) {
 	//生成画布，开始绘画
