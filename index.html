@@ -121,7 +121,7 @@
 					</div>
 					<div id="">
 						图形层级设置：<br>
-						层级设置：<input type="text" id="zlevel" placeholder="例如:1,默认无,数值越大显示越置前" />
+						层级设置：<input type="text" id="zlevel" placeholder="例如:1,默认无,数值越大显示越置前" autocomplete="on"/>
 					</div>
 					<div id="">
 						<button type="button" class="btn config_sure">确认配置</button>
@@ -169,21 +169,16 @@
 					T1: {
 						draggable: false,
 						style: {
-							x: 4,
-							y: 4,
-							width: 30,
-							height: 30,
 							image: null,
 							text: "我就是标题",
 							fontSize: "50",
 							textFill: "#000000",
+							fontWeight:null,
 							fill: null,
 							stroke: 'transparent'
 						},
 						shape: {
 							r: null,
-							x: 4,
-							y: 4,
 							width: 130,
 							height: 130,
 						},
@@ -196,11 +191,9 @@
 					P1: {
 						draggable: false,
 						style: {
-							x: 4,
-							y: 4,
+							image: "./imgs/1.jpg",
 							width: 130,
 							height: 130,
-							image: "./imgs/1.jpg"
 						},
 						shape: {
 							width: 130,
@@ -219,9 +212,6 @@
 							stroke: 'transparent'
 						},
 						shape: {
-							r: null,
-							x: 4,
-							y: 4,
 							width: 130,
 							height: 130,
 						},
