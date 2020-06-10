@@ -66,6 +66,10 @@
 	visibility: hidden;
 }
 
+#active_code{
+	visibility: hidden;
+}
+
 .btn {
 	padding: 4px 8px;
 	background-color: #f2f2f2;

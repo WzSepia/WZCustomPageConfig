@@ -47,7 +47,19 @@
 					<input class="active_rect" type="text" placeholder="提供唯一代码,如:bt(标题)" />
 					<button class="btn btn_addRect">添加图形区域</button>
 				</div>
-
+				<div id="active_code">
+					<select class="active_code">
+						<option value ="T1">文本1</option>
+						<option value ="T2">文本2</option>
+						<option value ="T3">文本3</option>
+						<option value ="P1">图片1</option>
+						<option value ="P2">图片2</option>
+						<option value ="P3">图片3</option>
+						<option value ="S1">区域1</option>
+						<option value ="S2">区域2</option>
+						<option value ="S3">区域3</option>
+					</select>
+				</div>
 				<!-- <div id="">
 					是否显示单元格类型：
 					<label>否<input type="radio" name="sfxsdyglx" class="active_sfxsdyglx" value="0" checked="checked" /></label>
@@ -93,6 +105,9 @@
 			<div class="config fl">
 				<h1>通用元素配置界面</h1>
 				<div id="config_box">
+					<div id="">
+						文本内容：<input type="text" id="font_doc" placeholder="Hellow World!" />
+					</div>
 					<div id="">
 						文字颜色：<input type="text" id="font_color" placeholder="例如:默认 #000000,rgb(0,0,0)" />
 					</div>

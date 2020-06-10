@@ -118,7 +118,7 @@ var pageCustom = {
 		if (!img) return;
 		this.configEmpty();
 		//打开元素配置面板mold, code, val, state
-		this.configBox("img", img, img, true);
+		this.configBox("imgs", img, img, true);
 	},
 
 	/**
@@ -246,25 +246,6 @@ var pageCustom = {
 				break;
 		}
 	},
-	/**
-	 * 计算画布大小配置
-	 * @describing conNum
-	 * @param num1, num2
-	 * @author wangze
-	 * @updatetime 2020-03-25
-	 */
-	conNum: function(num1, num2) {
-		if (typeof(num1) == "number" && typeof(num2) == "number") {
-			if (num1 > 0 && num2 > 0) {
-				return true;
-			} else {
-				alert("宽高请输入大于0的有效数值！");
-			}
-		} else {
-			console.log("请输入数字!", typeof(num1), typeof(num2));
-			return false;
-		}
-	},
 
 	/**
 	 * 确认配置后的数据opts
@@ -323,6 +304,13 @@ var pageCustom = {
 				fontSize: fontSize ? fontSize : "18",
 				textFill: fontColor ? fontColor : "#000000",
 				fontWeight: fontWeight ? fontWeight : null,
+				truncate:{
+					//	包含了 textPadding 的宽度，超出这个范围就裁剪。
+					outerWidth:null,
+					//包含了 textPadding 的高度，超出这个范围就裁剪。
+					outerHeight:10,
+					ellipsis:"..."
+				},
 				fill: rectColor,
 				stroke: borderColor ? borderColor : 'transparent'
 			},
@@ -336,7 +324,6 @@ var pageCustom = {
 			position: [x ? x : 0, y ? y : 0],
 			zlevel: zlevel ? zlevel : null
 		}
-		//$(".custompage_box input").val("");
 		//console.log(opts);
 		return opts;
 	},
@@ -396,7 +383,7 @@ var pageCustom = {
 					$(".active").show();
 					break;
 					//图片元素
-				case "img":
+				case "imgs":
 					//数据存储
 					that.custom_page_data.imgs[code] = that.drawOpts(null, val, false);
 					//判断是否存在
@@ -441,6 +428,7 @@ var pageCustom = {
 			}
 		})
 	},
+
 	/**
 	 * 删除元素
 	 * @describing configDel
@@ -451,7 +439,7 @@ var pageCustom = {
 	configDel: function() {
 		let kind = this.kind;
 		let key = this.key;
-		if(this.eles[key]){
+		if (this.eles[key]) {
 			this.zr.remove(this.eles[key]);
 		}
 		delete this.custom_page_data[kind][key];
@@ -459,6 +447,7 @@ var pageCustom = {
 		$(".active").show();
 		//console.log("删除元素操作成功！")
 	},
+
 	/**
 	 * 清空输入框
 	 * @describing configDel
@@ -471,8 +460,9 @@ var pageCustom = {
 		$(".active input").val("");
 		//console.log("执行清空操作成功！");
 	},
+
 	/**
-	 * 阻止页面默认事件
+	 * 阻止页面（元素）默认事件
 	 * @describing oncontextmenu
 	 * @param el
 	 * @author wangze
@@ -503,6 +493,26 @@ var pageCustom = {
 		this.custom_page_data[child][val].position = el.target.position;
 		//console.log(el.target.position);
 		return el.target.position;
+	},
+
+	/**
+	 * 计算画布大小配置
+	 * @describing conNum
+	 * @param num1, num2
+	 * @author wangze
+	 * @updatetime 2020-03-25
+	 */
+	conNum: function(num1, num2) {
+		//console.log("请输入数字!", num1, num2);
+		if (typeof(num1) === "number" && typeof(num2) === "number") {
+			if (num1 > 0 && num2 > 0) {
+				return true;
+			} else {
+				alert("宽高请输入大于0的有效数值！");
+				return false;
+			}
+		}
+		//console.log("请输入数字!", typeof(num1), typeof(num2));
 	},
 
 	/**
@@ -537,6 +547,7 @@ var pageCustom = {
 		$("#active_text").css("visibility", "inherit");
 		$("#active_img").css("visibility", "inherit");
 		$("#active_rect").css("visibility", "inherit");
+		$("#active_code").css("visibility", "inherit");
 		//元素类型（文字）
 		if (texts) {
 			for (i in texts) {
@@ -576,6 +587,7 @@ var pageCustom = {
 			if (e.which == 1) {
 				that.elMouseup(e, "text", key);
 			} else if (e.which == 3) {
+				console.log(e.target.style.text);
 				that.rightKeyConfig("text", key, opt);
 			}
 		});
@@ -640,7 +652,7 @@ function webzCustom(el, opts) {
 		pageCustom.init(el, opts);
 	}
 	//配置页面，生成画布
-	$(".set_active_area").on("click", function() {
+	$(".set_active_area").off("click").on("click", function() {
 		let w = Number($(".set_active_area_w").val());
 		let h = Number($(".set_active_area_h").val());
 		if (pageCustom.conNum(w, h)) {
@@ -650,29 +662,30 @@ function webzCustom(el, opts) {
 			$("#active_text").css("visibility", "inherit");
 			$("#active_img").css("visibility", "inherit");
 			$("#active_rect").css("visibility", "inherit");
+			$("#active_code").css("visibility", "inherit");
 		}
 	});
 	//添加文本
-	$(".btn_addText").on("click", function() {
+	$(".btn_addText").off("click").on("click", function() {
 		let str = $(".active_text").val();
 		pageCustom.addText(str);
 	})
 	//添加图片
-	$(".btn_addImg").on("click", function() {
+	$(".btn_addImg").off("click").on("click", function() {
 		let str = $(".active_img").val();
 		pageCustom.addImg(str);
 	})
 	//添加背景图
-	// $(".btn_addBgpic").on("click", function() {
+	// $(".btn_addBgpic").off("click").on("click", function() {
 	// 	let str = $(".active_bgimg").val();
 	// 	pageCustom.addBgpic("demo1", str);
 	// });
 	//删除背景图
-	// $(".btn_delBgpic").on("click", function() {
+	// $(".btn_delBgpic").off("click").on("click", function() {
 	// 	pageCustom.delBgpic("demo1");
 	// });
 	//添加图形区域
-	$(".btn_addRect").on("click", function() {
+	$(".btn_addRect").off("click").on("click", function() {
 		let str = $(".active_rect").val();
 		if (!str) {
 			alert("请输入唯一代码！");
